@@ -6,7 +6,7 @@ export const Dado = ({resultado, hambre, lanzando}) => {
             {hambre && hambre.map((h, i) => {
                 return <Dice key={i} lanzando={lanzando} hambre={true}>{h}</Dice>
             })}
-            {resultado && resultado.map(r => {
+            {resultado && resultado.map((r,i) => {
                 return <Dice  key={i}  lanzando={lanzando}>{r}</Dice>
             })}
         </>

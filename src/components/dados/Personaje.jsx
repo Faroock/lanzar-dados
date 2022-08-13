@@ -5,8 +5,8 @@ export const Personaje = ({jugador, userId, diced, resultado}) => {
     let lanzando = {}
     if (diced?.lanzando) {
         lanzando = {
-            hambre: Array(diced?.dados?.hambre || 0).fill('X'),
-            resultado: Array(diced?.dados?.cantidad - diced?.dados?.hambre || 0).fill('X')
+            hambre: Array(diced?.dados?.hambre || 0).fill('·'),
+            resultado: Array(diced?.dados?.cantidad - diced?.dados?.hambre || 0).fill('·')
         }
     }
     return (
