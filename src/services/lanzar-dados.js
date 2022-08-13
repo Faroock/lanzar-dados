@@ -24,22 +24,6 @@ export const getMasters = (callback, errorcallback) => {
         });
 };
 
-export const getCronicas = (idMaster, callback, errorcallback) => {
-    const [url, headers] = getServer();
-    let urlCronicas = `${url}/rest/v1/cronicas?select=*,master(*)`;
-    if (idMaster) {
-        urlCronicas = `${urlCronicas}&master=eq.${idMaster}`;
-    } 
-
-    return axios.get(`${urlCronicas}`,headers)
-        .then((response) => {
-            callback(response.data);
-        })
-        .catch((err) => {
-            errorcallback(err);
-        });
-};
-
 export const saveMaster = (master, callback, errorcallback) => {
     const [url, headers] = getServer();
     headers.headers['Prefer'] = 'resolution=merge-duplicates,return=representation';
@@ -74,6 +58,19 @@ export const saveCronica = (cronica, callback, errorcallback) => {
 //             errorcallback(err);
 //         });
 // };
+
+export const getCronicas = async (idMaster, callback, errorcallback) => {
+    const { data: cronicas, error } = await supabase
+        .from('cronicas')
+        .select('id,nombre,links,masters(id,nickname),jugadores(id,nickname,personaje)')
+        .eq('master', idMaster)
+        .order('nombre', { ascending: true })
+    if (error) {
+        errorcallback(error);
+    } else {
+        callback(cronicas);
+    }
+};
 
 export const getCronica = async (idCronica, callback, errorcallback) => {
     const { data: cronica, error } = await supabase
