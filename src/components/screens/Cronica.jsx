@@ -84,7 +84,7 @@ export const Cronica = ({idCronica}) => {
                 <CronicaFooter>
                     {cronica?.links && cronica?.links?.length > 0 && <Links>Links:</Links>}
                     {cronica?.links && cronica?.links?.map(({link, nombre}, index) => {
-                        return <a key={index} href={link} target="_blank"> · {nombre}</a>
+                        return <a key={index} href={link} target="_blank" rel="noreferrer"> · {nombre}</a>
                     })}
                 </CronicaFooter>
             }

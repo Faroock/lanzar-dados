@@ -3,11 +3,11 @@ const { default: styled, keyframes } = require("styled-components")
 export const Dado = ({resultado, hambre, lanzando}) => {
     return (
         <>
-            {hambre && hambre.map(h => {
-                return <Dice lanzando={lanzando} hambre={true}>{h}</Dice>
+            {hambre && hambre.map((h, i) => {
+                return <Dice key={i} lanzando={lanzando} hambre={true}>{h}</Dice>
             })}
             {resultado && resultado.map(r => {
-                return <Dice lanzando={lanzando}>{r}</Dice>
+                return <Dice  key={i}  lanzando={lanzando}>{r}</Dice>
             })}
         </>
     )

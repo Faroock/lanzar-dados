@@ -3,15 +3,15 @@ import { cronicaStore } from '@services/store/state'
 import { Provider } from 'react-redux'
 import { Cronica } from "@components/screens/Cronica";
 
-const idCronica = ({ cronica }) => {
+const IdCronica = ({ cronica }) => {
     const router = useRouter();
-    const { idCronica } = router.query;
+    const { cronicaId } = router.query;
 
     return (
         <Provider store={cronicaStore}>
-            <Cronica idCronica={idCronica} />
+            <Cronica idCronica={cronicaId} />
         </Provider>
     );
 }
 
-export default idCronica;
+export default IdCronica;
