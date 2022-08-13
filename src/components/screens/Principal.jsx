@@ -73,7 +73,7 @@ export const Subcontenedor = styled.div`
 export const Forgot = styled.span`
     margin-top: 0.5rem;
     font-size: 0.6rem;
-    color: #fff;
+    color: Olive;
     cursor: pointer;
     &:hover {
         text-decoration: underline;
