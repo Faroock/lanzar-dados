@@ -12,7 +12,7 @@ export const useCronicas = (idMaster=undefined) => {
             console.log({err});
             setError(err);
         });
-    }, []);
+    }, [idMaster]);
     return { cronicas, error };
 }
 

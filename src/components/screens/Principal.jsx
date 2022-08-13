@@ -15,7 +15,7 @@ export default function Principal() {
     useEffect(() => {
         const cronicaActual = getFromLocalStorage('cronica')
         dispatch(hydrate(cronicaActual))
-    }, [])
+    }, [dispatch])
 
     const [idCronica, setIdCronica] = useState(cronica?.id || '')
     const [newCronica, setNewCronica] = useState(false)
