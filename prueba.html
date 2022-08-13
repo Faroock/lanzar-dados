@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-size: medium;
+        }
+        .dado {
+            width: 1.5em;
+            height: 1.5em;
+            font-size: 2em;
+            background-color: red;
+            border-radius: 15%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+            animation-name: none;
+            animation-duration: 0.5s;
+            animation-iteration-count: infinite;
+        }
+        @keyframes rotarDado {
+            100% {transform: rotate(360deg)}
+        }
+    </style>
+    <script>
+        function lanzarDado(caras) {
+            return Math.floor(Math.random() * caras) + 1;
+        }
+        function start(caras, dado) {
+            return lanzamiento = setInterval(()=> {
+                document.querySelector("#dado"+dado).innerHTML = lanzarDado(caras);
+                document.querySelector("#dado"+dado).style.animationName = "rotarDado";
+            }, 50);
+        }
+        function lanzar(caras, dado) {
+            lanzamiento = start(caras, dado);
+            setTimeout((result) => {
+                clearInterval(lanzamiento);
+                document.querySelector("#dado"+dado).innerHTML = lanzarDado(caras);
+                document.querySelector("#dado"+dado).style.animationName = "none";;
+            }, 1000);
+        }
+    </script>
+</head>
+<body>
+    <div class="dado" id='dado1' onclick="lanzar(10, 1)">0</div>
+    <div class="dado" id='dado2' onclick="lanzar(10, 2)">0</div>
+</body>
+</html>
