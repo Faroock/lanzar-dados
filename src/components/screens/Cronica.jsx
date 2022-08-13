@@ -19,7 +19,6 @@ export const Cronica = ({idCronica}) => {
     useEffect(() => {
         if (idCronica){
             getCronica(idCronica, (data) => {
-                console.log({data})
                 setCronica(data)
                 socket.emit('cronica', data)
             },(error) => {
