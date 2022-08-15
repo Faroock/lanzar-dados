@@ -20,7 +20,7 @@ export const Personaje = ({jugador, userId, diced, resultado}) => {
                     <Dado resultado={lanzando.resultado || 0} hambre={lanzando.hambre || 0} lanzando={true} />
                 : 
                     !diced?.lanzando && diced?.idJugador === jugador.id && resultado?.idJugador === jugador.id ?
-                        <Dado resultado={resultado.resultado} hambre={resultado.hambre} lanzando={false} />
+                        <Dado resultado={resultado.resultado} hambre={resultado.hambre} lanzando={false} tipo={resultado.tipo} />
                     : null    
                 }
             </PersonajeBody>
@@ -31,7 +31,7 @@ export const Personaje = ({jugador, userId, diced, resultado}) => {
 export const PersonajeContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     width: 48vw;
     height: 27vh;

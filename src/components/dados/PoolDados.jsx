@@ -40,7 +40,7 @@ export const PoolDados = () => {
         setDificultad(value);
     }
     const lanzarDados = () => {
-        socket.emit('dados', {cantidad: parseInt(cantidadDados), caras: parseInt(caras), hambre: parseInt(hambre), dificultad: parseInt(dificultad)})
+        socket.emit('dados', {cantidad: parseInt(cantidadDados), caras: parseInt(caras), hambre: parseInt(hambre), dificultad: parseInt(dificultad), tipo: tipoDados})
         socket.on('lanzando', ({idJugador, lanzando}) => {
             if (!lanzando) {
                 setCantidadDados('');
