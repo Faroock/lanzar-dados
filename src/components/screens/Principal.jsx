@@ -48,7 +48,7 @@ export default function Principal() {
         <Subcontenedor>
             <Span>Si ya tienes creada una crónica, puedes entrar a ella mediante el ID que deberías tener guardado.</Span>
             <Input type='text' placeholder='ID de la crónica' onChange={handleIdCronica} value={idCronica || ''} />
-            <Link href={`/${idCronica}`}>Entra a tu cronica</Link>
+            <Anchor href={`/${idCronica}`}>Entra a tu cronica</Anchor>
             <Forgot onClick={()=>setForgot(true)}>¿Has olvidado el ID de tu crónica?</Forgot>
         </Subcontenedor>
         }
@@ -127,7 +127,7 @@ export const Span = styled.span`
     font-family: 'Roboto', sans-serif;
 `
 
-const Link = styled.a`
+const Anchor = styled.a`
     display: block;
     width: 15em;
     background: #4E9CAF;

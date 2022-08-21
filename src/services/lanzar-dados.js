@@ -13,6 +13,16 @@ const getServer = () => {
 const [url, headers, supabase_key] = getServer();
 const supabase = createClient(url, supabase_key);
 
+export const getGamers = (callback, errCallback) => {
+    axios.get(`${url}/rest/v1/jugadores`, headers)
+    .then((response) => {
+        callback(response.data);
+    })
+    .catch((error) => {
+        errCallback(error);
+    });
+}
+
 export const getMasters = (callback, errorcallback) => {
     const [url, headers] = getServer();
     return axios.get(`${url}/rest/v1/masters?select=id,nombre,nickname,email`,headers)

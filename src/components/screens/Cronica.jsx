@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { DadosLabel, DadosSelect, PoolDados } from "@components/dados/PoolDados";
 import { Personaje } from "@components/dados/Personaje";
 import socket from "@services/sockets";
+import { Forgot } from "./Principal";
+import { NewGamer } from "@components/modals/NewGamer";
 
 export const Cronica = ({idCronica}) => {
     const [userId, setUserId] = useState()
@@ -50,47 +52,81 @@ export const Cronica = ({idCronica}) => {
     socket.on('dados', (data) => {
         setResultado(data)
     })
-    
-    return (
 
-        <CronicaContainer>
-            {cronica &&
-                <CronicaHeader>
-                    <CronicaTitulo>{(cronica?.nombre || '').normalize('NFD').replace(/[\u0300-\u036f]/g, "")}</CronicaTitulo>
-                    <CronicaSubtitulo>(By {(cronica?.masters?.nickname || '').normalize('NFD').replace(/[\u0300-\u036f]/g, "")})</CronicaSubtitulo>
-                </CronicaHeader>
-            }
-            {userId && jugadores?.length > 0 ? 
-                <CronicaBody>
-                    <PoolDados />
-                    {jugadores
-                    .map((p, i) => {
-                        return <Personaje key={i} jugador={p} userId={userId} diced={diced} resultado={resultado} />
-                    })}
-                </CronicaBody>
-             :
-                <CronicaBody>
-                    <DadosLabel>Para poder jugar, debes indicarme quién eres</DadosLabel>
-                    <DadosSelect onChange={handleUserId}>
-                        <option value="">Selecciona</option>
-                        {cronica?.masters && <option value={cronica?.masters?.id}>{cronica?.masters?.nickname}</option>}
-                        {cronica?.jugadores?.map((p, i) => {
-                            return <option key={i} value={p.id} name={p.nickname}>{p.nickname}</option>
+    const [nuevoJugador, setNuevoJugador] = useState(false)
+    const cancelarNuevoJugador = () => {
+        setNuevoJugador(false)
+    }
+    console.log({cronica, userId})
+    return (
+        <>
+            <NewGamer show={nuevoJugador} onHide={cancelarNuevoJugador} idCronica={idCronica} />
+            <CronicaContainer>
+                {cronica &&
+                    <CronicaHeader>
+                        <CronicaTitulo>{(cronica?.nombre || '').normalize('NFD').replace(/[\u0300-\u036f]/g, "")}</CronicaTitulo>
+                        <CronicaSubtitulo>(By {(cronica?.masters?.nickname || '').normalize('NFD').replace(/[\u0300-\u036f]/g, "")})</CronicaSubtitulo>
+                    </CronicaHeader>
+                }
+                {userId && jugadores?.length > 0 ? 
+                    <CronicaBody>
+                        <PoolDados />
+                        {jugadores
+                        .map((p, i) => {
+                            return <Personaje key={i} jugador={p} userId={userId} diced={diced} resultado={resultado} />
                         })}
-                    </DadosSelect>
-                </CronicaBody>
-            }
-             {cronica && 
-                <CronicaFooter>
-                    {cronica?.links && cronica?.links?.length > 0 && <Links>Links:</Links>}
-                    {cronica?.links && cronica?.links?.map(({link, nombre}, index) => {
-                        return <a key={index} href={link} target="_blank" rel="noreferrer"> · {nombre}</a>
-                    })}
-                </CronicaFooter>
-            }
-        </CronicaContainer>)
-    
+                    </CronicaBody>
+                :
+                    <CronicaBody>
+                        <DadosLabel>Para poder jugar, debes indicarme quién eres</DadosLabel>
+                        <DadosSelect onChange={handleUserId}>
+                            <option value="">Selecciona</option>
+                            {cronica?.masters && <option value={cronica?.masters?.id}>{cronica?.masters?.nickname}</option>}
+                            {cronica?.jugadores?.map((p, i) => {
+                                return <option key={i} value={p.id} name={p.nickname}>{p.nickname}</option>
+                            })}
+                        </DadosSelect>
+                    </CronicaBody>
+                }
+                {cronica && 
+                    <CronicaFooter>
+                        {cronica?.links && cronica?.links?.length > 0 && <Links>Links:</Links>}
+                        {cronica?.links && cronica?.links?.map(({link, nombre}, index) => {
+                            return <a key={index} href={link} target="_blank" rel="noreferrer"> · {nombre}</a>
+                        })}
+                    </CronicaFooter>
+                }
+                <NuevoJugadorContainer nuevo={userId}>
+                    <Nuevo onClick={()=>setNuevoJugador(true)}><div>¿No estas en la cronica?</div><div>¡Registrate como nuevo jugador!</div></Nuevo>
+                </NuevoJugadorContainer>
+            </CronicaContainer>
+        </>
+    )
 }
+
+const NuevoJugadorContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 65%;
+    visibility: ${({nuevo}) => nuevo ? 'hidden' : 'visible'};
+`
+const Nuevo = styled.div`
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Vampire', 'Roboto', sans-serif;
+    &:hover {
+        text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+        margin-top: 1rem;
+    }
+`
 
 export const CronicaHeader = styled.div`
     display: flex;

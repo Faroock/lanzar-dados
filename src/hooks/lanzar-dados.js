@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCronicas, getMasters } from "services/lanzar-dados";
+import { getCronicas, getGamers, getMasters } from "services/lanzar-dados";
 
 export const useCronicas = (idMaster=undefined) => {
     const [cronicas, setCronicas] = useState([]);
@@ -31,3 +31,17 @@ export const useMasters = (id=undefined) => {
     return { masters, setMasters, error };
 }
 
+export const useGamers = (id=undefined) => {
+    const [gamers, setGamers] = useState([]);
+    const [error, setError] = useState();
+    useEffect(() => {
+        getGamers((gamers) => {
+            setGamers(gamers);
+        },
+        (err) => {
+            console.log({err});
+            setError(err);
+        });
+    }, [id]);
+    return { gamers, error };
+}
